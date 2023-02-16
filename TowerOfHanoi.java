@@ -26,28 +26,63 @@ class TowerOfHanoi
 {
     public static void main(String[] args)
     {
-        TowerOfHanoi solver = new TowerOfHanoi();
         solveTowerOfHanoi();
         System.out.println("apples");
     } // end of main method
 
     private static int NUM_OF_DISKS = 4;
-    private static int NUM_OF_TOWERS = 3;
+    private static int NUM_OF_TOWERS = 3; // prob remove
+
+
+
+    public static void solveTowerOfHanoi()
+    {
+        // each disk starts at first tower
+        int[] diskTowers = {0,0,0,0};
+        solveTowerOfHanoi(4, 1, diskTowers);
+    }
+
+
 
     // method = somesomething recurssion something find optimal path
-    public ArrayList<Integer>[][] solveTowerOfHanoi()
+    private static void solveTowerOfHanoi(int disks, int round, int[] diskTowers)
     {
-        int moves = 0;
-        int disk;
         // optimal moves is always (2^Number of disks) -1
-        while(moves < (2^NUM_OF_DISKS)-1)
+
+        // 1 << disks is equal to 2^disks
+        final int maxRounds = (1 << disks)-1;
+
+        int movedDisk = 0;
+        int move = 1;
+
+        // if on move%3 -2, move over 2
+        if((round % 3) -2 == 0)
+            {move = 2;}
+        
+        // if multiple of 4, move different amount
+        if(round % 4 == 0)
         {
-            // across + over
-            // (across, across, over) x 4
-            // across
-            moves++;
-            //solveTowerOfHanoi();
-            return towers;
+            switch(round)
+            {
+                case 4:
+                case 12:
+                    movedDisk = 3;
+                    break;
+                case 8:
+                    movedDisk = 4;
+                    break;
+            }
         }
+        else if (round % 2 == 0) // if multiple of 2 but not 4
+            {movedDisk = 2;}
+        else // else odd
+            {movedDisk = 1;}
+        
+        diskTowers[movedDisk-1] = (diskTowers[movedDisk-1] + move) % 3;
+        char moveTower = (char)('a' + diskTowers[movedDisk-1]);
+
+        System.out.println("Move Disk " + movedDisk + " to Tower " + moveTower + ".");
+        if(round < maxRounds) // recurses if max moves not done
+            {solveTowerOfHanoi(disks, round+1, diskTowers);}
     } // end of solveTowerOfHanoi method
 } // end of TowerOfHanoi class
