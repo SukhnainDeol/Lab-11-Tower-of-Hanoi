@@ -56,8 +56,16 @@ class TowerOfHanoi
         int move = 1;
 
         // if on move%3 -2, move over 2
-        if((round % 3) -2 == 0)
-            {move = 2;}
+        switch(round)
+        {
+            case 2:
+            case 6:
+            case 8:
+            case 10:
+            case 14:
+                move = 2;
+                break;
+        }
         
         // if multiple of 4, move different amount
         if(round % 4 == 0)
@@ -77,7 +85,7 @@ class TowerOfHanoi
             {movedDisk = 2;}
         else // else odd
             {movedDisk = 1;}
-        
+
         diskTowers[movedDisk-1] = (diskTowers[movedDisk-1] + move) % 3;
         char moveTower = (char)('a' + diskTowers[movedDisk-1]);
 
