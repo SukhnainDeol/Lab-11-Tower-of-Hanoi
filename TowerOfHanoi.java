@@ -63,8 +63,8 @@ class TowerOfHanoi
         // array value = tower (0-2)
         int[] diskTowers = new int[disks];
         
-        for(int i: diskTowers) // assign each index to 0
-            {i = 0;}
+        for(int i = 0; i < diskTowers.length; i++) // assign each index to 0
+            {diskTowers[i] = 0;}
         
         solveTowerOfHanoi(disks, 1, diskTowers);
     } // end of public solveTowerOfHanoi method
@@ -93,16 +93,8 @@ class TowerOfHanoi
         int move = 1; // how many tower its is moving by
 
         // if on move%3 -2, move over 2 instead of 1
-        switch(round)
-        {
-            case 2:
-            case 6:
-            case 8:
-            case 10:
-            case 14:
-                move = 2;
-                break;
-        }
+        if((move % 6) -2 == 0)
+            {move = 2;}
         
         // move a certain disk based on the pattern
         // if multiple of 4, move different amount
@@ -135,7 +127,84 @@ class TowerOfHanoi
         char moveTower = (char)('a' + diskTowers[movedDisk-1]);
 
         System.out.println("Move Disk " + movedDisk + " From Tower "+startTower+" to Tower " + moveTower + ".");
+        displayTowerOfHanoi(diskTowers);
         if(round < maxRounds) // if less rounds is less than max
             {solveTowerOfHanoi(disks, round+1, diskTowers);} // recurse with next round
     } // end of private solveTowerOfHanoi method
+
+
+    
+    public static void displayTowerOfHanoi(int[] diskTowers)
+    {
+        // holds how many disk are at each tower
+        int[] towerStacks = new int[3];
+        for(int i = 0; i < towerStacks.length; i++)
+            {towerStacks[i] = 0;} // assigns all to 0
+
+        // holds visual 2d array of game
+        char[][] towers = new char[19][6];
+        // for first 5 rows
+        for(int i = 0; i < 5; i++)
+        {
+            for(int j = 0; j < 19; j++)
+            {
+                switch(j)
+                {
+                    case 2:
+                    case 9:
+                    case 16:
+                        towers[j][i] = '|';
+                        break;
+                    default:
+                        towers[j][i] = ' ';
+                        break;
+                }
+            }
+        }
+        for(int i = 0; i < 19; i++)
+        {
+            switch(i)
+            {
+                case 5:
+                case 6:
+                case 12:
+                case 13:
+                    towers[i][5] = ' ';
+                    break;
+                default:
+                    towers[i][5] = '-';
+                    break;
+            }
+        }
+        
+        // adds tower values
+        for(int i = diskTowers.length; i > 0; i--)
+        {
+            switch(diskTowers[i-1])
+            {
+                case 0:
+                    towers[2][4-towerStacks[0]] = (char) (i+'0');
+                    towerStacks[0]++;
+                    break;
+                case 1:
+                    towers[9][4-towerStacks[1]] = (char) (i+'0');
+                    towerStacks[1]++;
+                    break;
+                case 2:
+                    towers[16][4-towerStacks[2]] = (char) (i+'0');
+                    towerStacks[2]++;
+                    break;
+            }
+        }
+
+        // prints display
+        for(int i = 0; i < 6; i++)
+        {
+            for(int j = 0; j < 19; j++)
+            {
+                System.out.print(towers[j][i]);
+            }
+            System.out.println();
+        }
+    }
 } // end of TowerOfHanoi class
