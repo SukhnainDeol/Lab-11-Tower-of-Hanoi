@@ -93,9 +93,18 @@ class TowerOfHanoi
         int move = 1; // how many tower its is moving by
 
         // if on move%3 -2, move over 2 instead of 1
-        if((move % 6) -2 == 0)
+        /*if((round % 6) -2 == 0)
             {move = 2;}
-        
+        System.out.println(move);  */
+        switch(round)
+            {
+                case 2:
+                case 6:
+                case 8:
+                case 10:
+                case 14:
+                    move = 2;
+            }
         // move a certain disk based on the pattern
         // if multiple of 4, move different amount
         if(round % 4 == 0)
@@ -126,7 +135,7 @@ class TowerOfHanoi
         // translates disk's int value into a char
         char moveTower = (char)('a' + diskTowers[movedDisk-1]);
 
-        System.out.println("Move Disk " + movedDisk + " From Tower "+startTower+" to Tower " + moveTower + ".");
+        System.out.println(round+". Move Disk " + movedDisk + " From Tower "+startTower+" to Tower " + moveTower + ".");
         displayTowerOfHanoi(diskTowers);
         if(round < maxRounds) // if less rounds is less than max
             {solveTowerOfHanoi(disks, round+1, diskTowers);} // recurse with next round
