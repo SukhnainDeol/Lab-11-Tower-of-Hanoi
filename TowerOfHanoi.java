@@ -16,6 +16,7 @@
             // recursive method?
         // formula for when round is is +2 move instead of 1
             // recursive method?
+        // make display height dynamic
 
 // Revise
     // pre/post conditions 
@@ -168,9 +169,9 @@ class TowerOfHanoi
             {towerStacks[i] = 0;} // assigns all to 0
 
         // holds visual 2d array of game
-        char[][] towers = new char[19][6];
+        char[][] towers = new char[19][diskTowers.length+3];
         // for first 5 rows
-        for(int i = 0; i < 5; i++)
+        for(int i = 0; i < towers[0].length-1; i++)
         {
             for(int j = 0; j < 19; j++)
             {
@@ -195,10 +196,10 @@ class TowerOfHanoi
                 case 6:
                 case 12:
                 case 13:
-                    towers[i][5] = ' ';
+                    towers[i][towers[0].length-1] = ' ';
                     break;
                 default:
-                    towers[i][5] = '-';
+                    towers[i][towers[0].length-1] = '-';
                     break;
             }
         }
@@ -224,7 +225,7 @@ class TowerOfHanoi
         }
 
         // prints display
-        for(int i = 0; i < 6; i++)
+        for(int i = 0; i < towers[0].length; i++)
         {
             for(int j = 0; j < 19; j++)
             {
