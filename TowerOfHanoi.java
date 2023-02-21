@@ -3,19 +3,27 @@
 // Date: 02/13/2023
 // Assignmnet: Lab 5: Tower Of Hanoi
 
-// Purpose: Print the optimal steps to solve a tower 
-// of hanoi with 3 towers and 4 disks with recursion
+// Purpose: This program will display the optimal move for solving a 
+// tower of hanoi puzzle with 3 towers and 4 disks using recursion. 
+// It will use both words to describe the movements of each disk and 
+// create an ascii text image displaying the movement. 
 
 
 
 // To DO:
-    // pre/post condition
     // make dynamic
-    // formula for ints in between 1 2 
-        // recursive method?
-    // formula for when round is is +2 move instead of 1
-        // recursive method?
-    // need ASCII
+        // formula for ints in between 1 2 
+            // recursive method?
+        // formula for when round is is +2 move instead of 1
+            // recursive method?
+
+// Revise
+    // pre/post conditions 
+
+// DONE
+    // input
+    // display
+
 
 import java.util.*;
 
@@ -30,7 +38,7 @@ class TowerOfHanoi
         // loop asks for number of disks tower to solve
         while(!isPositiveInt)
         {
-            System.out.println("How many disks to solve for Tower of Hanoi?: ");
+            System.out.print("How many disks to solve for Tower of Hanoi?: ");
 
             if(in.hasNextInt()) // if int
             {
@@ -39,10 +47,16 @@ class TowerOfHanoi
                 if(disks > 0) // if above 0
                     {isPositiveInt = true;} // end loop
                 else // error
-                    {System.out.println("ERROR: Please Input a Positive Whole Number");}
+                {
+                    System.out.println("ERROR: Please Input a Positive Whole Number\n");
+                    in.nextLine(); // clears input for next loop
+                }
             }
             else // error
-                {System.out.println("ERROR: Please Input a Positive Whole Number");}
+            {
+                System.out.println("ERROR: Please Input a Positive Whole Number\n");
+                in.nextLine(); // clears input for next loop
+            }
         } // end of input loop
 
         // solve Tower of Hanoi for given number of disks
@@ -135,8 +149,11 @@ class TowerOfHanoi
         // translates disk's int value into a char
         char moveTower = (char)('a' + diskTowers[movedDisk-1]);
 
-        System.out.println(round+". Move Disk " + movedDisk + " From Tower "+startTower+" to Tower " + moveTower + ".");
+        System.out.println("STEP "+ round +": Move Disk " + movedDisk + " From Tower "+startTower+" to Tower " + moveTower + ".");
+
         displayTowerOfHanoi(diskTowers);
+        System.out.println("\n"); // adds 2 line breaks
+
         if(round < maxRounds) // if less rounds is less than max
             {solveTowerOfHanoi(disks, round+1, diskTowers);} // recurse with next round
     } // end of private solveTowerOfHanoi method
