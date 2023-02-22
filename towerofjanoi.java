@@ -12,7 +12,7 @@ public class towerofjanoi
         // places all disks at tower 0 (tower A)
         for(int i = 0; i < disks; i++)
             {diskArray[i] = 0;}
-        solveTowerOfHanoi(disks, 1, 2, 3, diskArray)
+        solveTowerOfHanoi(disks, 1, 2, 3, diskArray);
     }
 
     private static void solveTowerOfHanoi(int disks, int start, int extra, int end, int[] diskArray)
@@ -25,8 +25,8 @@ public class towerofjanoi
             diskArray[disk-1] = end-1; // keeps track of where the disk is
             
             // converts tower numbers to letters
-            char startTower = (char)(A+(start-1))
-            char endTower = (char)(A+(end-1))
+            char startTower = (char)(A+(start-1));
+            char endTower = (char)(A+(end-1));
 
             // the largest number disk's movement is always in the center of the pattern
             System.out.println("Move Disk " + disks + " From Tower "+startTower+" to Tower " + endTower + ".");
