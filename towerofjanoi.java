@@ -2,7 +2,7 @@ public class towerofjanoi
 {
     public static void main(String[] args)
     {
-        solveTowerOfHanoi(4);
+        solveTowerOfHanoi(1);
     }
 
 
@@ -97,7 +97,7 @@ public class towerofjanoi
             // and adds to appropiate space in 2d array
             switch(diskArray[i-1])
             {
-                // 4-tower stacks
+                // towerHeight-2-towerStack[index] = lo
                 case 0: // disks in tower A
                     towers[2][towerHeight-2-towerStacks[0]] = (char) (i+'0');
                     towerStacks[0]++; // tracks how many disks in each tower
