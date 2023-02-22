@@ -112,14 +112,14 @@ class TowerOfHanoi
             {move = 2;}
         System.out.println(move);  */
         switch(round)
-            {
-                case 2:
-                case 6:
-                case 8:
-                case 10:
-                case 14:
-                    move = 2;
-            }
+        {
+            case 2:
+            case 6:
+            case 8:
+            case 10:
+            case 14:
+                move = 2;
+        }
         // move a certain disk based on the pattern
         // if multiple of 4, move different amount
         if(round % 4 == 0)
@@ -141,14 +141,14 @@ class TowerOfHanoi
             {movedDisk = 1;} // move disk 1
 
         // location of disk before it moves
-        char startTower = (char)('a' + diskTowers[movedDisk-1]);
+        char startTower = (char)('A' + diskTowers[movedDisk-1]);
 
         // move select disk's tower value by move var (move value depends on round)
         // if value is above 2 it loops back around to 0 (towers are 0-2)
         diskTowers[movedDisk-1] = (diskTowers[movedDisk-1] + move) % 3;
 
         // translates disk's int value into a char
-        char moveTower = (char)('a' + diskTowers[movedDisk-1]);
+        char moveTower = (char)('A' + diskTowers[movedDisk-1]);
 
         System.out.println("STEP "+ round +": Move Disk " + movedDisk + " From Tower "+startTower+" to Tower " + moveTower + ".");
 
