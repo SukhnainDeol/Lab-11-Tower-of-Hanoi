@@ -2,7 +2,7 @@ public class towerofjanoi
 {
     public static void main(String[] args)
     {
-        solveTowerOfHanoi(4, 1, 2, 3, 0);
+        solveTowerOfHanoi(4);
     }
 
 
@@ -22,11 +22,11 @@ public class towerofjanoi
             // prints first half of the cycle
             solveTowerOfHanoi(disks-1, start, end, extra, diskArray);
 
-            diskArray[disk-1] = end-1; // keeps track of where the disk is
+            diskArray[disks-1] = end-1; // keeps track of where the disk is
             
             // converts tower numbers to letters
-            char startTower = (char)(A+(start-1));
-            char endTower = (char)(A+(end-1));
+            char startTower = (char)('A'+(start-1));
+            char endTower = (char)('A'+(end-1));
 
             // the largest number disk's movement is always in the center of the pattern
             System.out.println("Move Disk " + disks + " From Tower "+startTower+" to Tower " + endTower + ".");
@@ -46,7 +46,7 @@ public class towerofjanoi
 
         // diskArray length +3 is to know 
         // how tall to make the display
-        int towerHeight = diskTowers +3;
+        int towerHeight = diskArray.length +3;
 
         // holds visual 2d array of game
         // 19 is the length of the towers displayed
@@ -95,19 +95,19 @@ public class towerofjanoi
         {
             // evaluates tower value of disk
             // and adds to appropiate space in 2d array
-            switch(diskTowers[i-1])
+            switch(diskArray[i-1])
             {
                 // 4-tower stacks
                 case 0: // disks in tower A
-                    towers[2][towerHeight-1-towerStacks[0]] = (char) (i+'0');
+                    towers[2][towerHeight-2-towerStacks[0]] = (char) (i+'0');
                     towerStacks[0]++; // tracks how many disks in each tower
                     break;
                 case 1: // disks in tower B
-                    towers[9][towerHeight-1-towerStacks[1]] = (char) (i+'0');
+                    towers[9][towerHeight-2-towerStacks[1]] = (char) (i+'0');
                     towerStacks[1]++; // tracks how many disks in each tower
                     break;
                 case 2: // disks in tower C
-                    towers[16][towerHeight-1-towerStacks[2]] = (char) (i+'0');
+                    towers[16][towerHeight-2-towerStacks[2]] = (char) (i+'0');
                     towerStacks[2]++; // tracks how many disks in each tower
                     break;
             }
