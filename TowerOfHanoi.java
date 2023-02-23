@@ -4,7 +4,7 @@
 // Assignment: Lab 5: Tower Of Hanoi
 
 // Purpose: This program will display the optimal move for solving a 
-// tower of hanoi puzzle with 3 towers and 4 disks using recursion. 
+// tower of hanoi puzzle with 3 towers and x disks using recursion. 
 // It will use both words to describe the movements of each disk and 
 // create an ascii text image displaying the movement. 
 
@@ -63,7 +63,7 @@ class TowerOfHanoi
 
     /* 
     param: 
-        disks - number of disks in tower of hanoi
+        disks - number of disks in game
     pre  : disks > 0 
     post : print optimal moves for tower of hanoi
            game with given disks, both in text and
@@ -92,7 +92,7 @@ class TowerOfHanoi
 
     /* 
     param: 
-        disk - number of disks
+        disk - disk to move
         start - current tower of disks
         end  - tower the disks end up in
         extra - extra tower used to move between the towers
