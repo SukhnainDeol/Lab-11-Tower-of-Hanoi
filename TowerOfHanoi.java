@@ -4,7 +4,7 @@
 // Assignment: Lab 5: Tower Of Hanoi
 
 // Purpose: This program will display the optimal move for solving a 
-// tower of hanoi puzzle with 3 towers and x disks using recursion. 
+// tower of hanoi puzzle with 3 towers and x disks using recursion.
 // It will use both words to describe the movements of each disk and 
 // create an ascii text image displaying the movement. 
 
@@ -25,8 +25,7 @@ class TowerOfHanoi
         // loop asks for # of disks to solve for
         while(!isPositiveInt)
         {
-            System.out.print("How many disks to solve");
-            System.out.print(" for Tower of Hanoi?: ");
+            System.out.print("Number of Disks to Solve for: ");
 
             if(in.hasNextInt()) // if int
             {
@@ -59,6 +58,7 @@ class TowerOfHanoi
 
     // keeps track of recursions(rounds in a game)
     public static int round; 
+
 
 
     /* 
@@ -240,8 +240,7 @@ class TowerOfHanoi
         }
 
         
-        // prints display
-        // for height of tower
+        // prints display for height of tower
         for(int i = 0; i < towers[0].length; i++)
         {
             // for length of tower
