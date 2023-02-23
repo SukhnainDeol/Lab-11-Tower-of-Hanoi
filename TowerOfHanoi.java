@@ -11,19 +11,7 @@
 
 
 // To DO:
-    // make dynamic
-        // formula for ints in between 1 2 
-            // recursive method?
-        // formula for when round is is +2 move instead of 1
-            // recursive method?
-        // make display height dynamic
-
-// Revise
-    // pre/post conditions 
-
-// DONE
-    // input
-    // display
+    // Revise pre/post conditions 
 
 
 import java.util.*;
@@ -62,7 +50,13 @@ class TowerOfHanoi
 
         // solve Tower of Hanoi for given number of disks
         solveTowerOfHanoi(disks); 
+        in.close(); // close scanner
     } // end of main method
+
+
+
+    // keeps track of recursions(rounds in a game)
+    public static int round; 
 
 
 
@@ -74,15 +68,20 @@ class TowerOfHanoi
            // the given round
     public static void solveTowerOfHanoi(int disks)
     {
-        // array index = disk (0-(disks-1))
-        // array value = tower (0-2)
-        int[] diskTowers = new int[disks];
-        
-        for(int i = 0; i < diskTowers.length; i++) // assign each index to 0
-            {diskTowers[i] = 0;}
-        
-        solveTowerOfHanoi(disks, 1, diskTowers);
-    } // end of public solveTowerOfHanoi method
+        round = 0;
+        int[] diskArray = new int[disks];
+        // places all disks at tower 0 (tower A)
+        for(int i = 0; i < disks; i++)
+            {diskArray[i] = 0;}
+
+        // prints starting positions
+        System.out.println("STEP 0:");
+        displayTowerOfHanoi(diskArray);
+        round++;
+
+        // begins solving
+        solveTowerOfHanoi(disks, 1, 2, 3, diskArray);
+    } // end of solveTowerOfHanoi method
 
 
 
@@ -98,83 +97,53 @@ class TowerOfHanoi
     // post : return print statements of optimal moves to solve tower of
           // hanoi with 3 towers for given number of disks starting from
           // the given round
-    private static void solveTowerOfHanoi(int disks, int round, int[] diskTowers)
-    {   
-        // optimal moves is always (2^Number of disks) -1
-        // 1 << disks is equal to 2^disks
-        final int maxRounds = (1 << disks)-1;
-
-        int movedDisk = 0; // disk that is being moved
-        int move = 1; // how many tower its is moving by
-
-        // if on move%3 -2, move over 2 instead of 1
-        /*if((round % 6) -2 == 0)
-            {move = 2;}
-        System.out.println(move);  */
-        switch(round)
+    private static void solveTowerOfHanoi(int disks, int start, int extra, int end, int[] diskArray)
+    {
+        if (disks > 0) // ends recursion once disks = 0
         {
-            case 2:
-            case 6:
-            case 8:
-            case 10:
-            case 14:
-                move = 2;
+            // prints first half of the cycle
+            solveTowerOfHanoi(disks-1, start, end, extra, diskArray);
+
+            diskArray[disks-1] = end-1; // keeps track of where the disk is
+            
+            // converts tower numbers to letters
+            char startTower = (char)('A'+(start-1));
+            char endTower = (char)('A'+(end-1));
+
+            // the largest number disk's movement is always in the center of the pattern
+            System.out.println("STEP "+round+": Move Disk " + disks + " From Tower "+startTower+" to Tower " + endTower + ".");
+            round++;
+            displayTowerOfHanoi(diskArray); // printed visual representation of towers
+            // prints 2nd half of the cycle
+            solveTowerOfHanoi(disks-1, extra, start, end, diskArray);
         }
-        // move a certain disk based on the pattern
-        // if multiple of 4, move different amount
-        if(round % 4 == 0)
-        {
-            switch(round)
-            {
-                case 4:
-                case 12:
-                    movedDisk = 3;
-                    break;
-                case 8:
-                    movedDisk = 4;
-                    break;
-            }
-        }
-        else if (round % 2 == 0) // if multiple of 2 but not 4
-            {movedDisk = 2;} // move disk 2
-        else // else (odd number)
-            {movedDisk = 1;} // move disk 1
-
-        // location of disk before it moves
-        char startTower = (char)('A' + diskTowers[movedDisk-1]);
-
-        // move select disk's tower value by move var (move value depends on round)
-        // if value is above 2 it loops back around to 0 (towers are 0-2)
-        diskTowers[movedDisk-1] = (diskTowers[movedDisk-1] + move) % 3;
-
-        // translates disk's int value into a char
-        char moveTower = (char)('A' + diskTowers[movedDisk-1]);
-
-        System.out.println("STEP "+ round +": Move Disk " + movedDisk + " From Tower "+startTower+" to Tower " + moveTower + ".");
-
-        displayTowerOfHanoi(diskTowers);
-        System.out.println("\n"); // adds 2 line breaks
-
-        if(round < maxRounds) // if less rounds is less than max
-            {solveTowerOfHanoi(disks, round+1, diskTowers);} // recurse with next round
-    } // end of private solveTowerOfHanoi method
+    } // end of solveTowerOfHanoi method
 
 
     
-    public static void displayTowerOfHanoi(int[] diskTowers)
+    public static void displayTowerOfHanoi(int[] diskArray)
     {
         // holds how many disk are at each tower
         int[] towerStacks = new int[3];
+        // assigns all to start at 0
         for(int i = 0; i < towerStacks.length; i++)
-            {towerStacks[i] = 0;} // assigns all to 0
+            {towerStacks[i] = 0;} 
+
+        // diskArray length +3 is to know 
+        // how tall to make the display
+        int towerHeight = diskArray.length +3;
 
         // holds visual 2d array of game
-        char[][] towers = new char[19][diskTowers.length+3];
-        // for first 5 rows
+        // 19 is the length of the towers displayed
+        char[][] towers = new char[19][towerHeight];
+
+        // prints height of tower
         for(int i = 0; i < towers[0].length-1; i++)
         {
+            // prints length of tower
             for(int j = 0; j < 19; j++)
             {
+                // prints tower rod at appropiate space
                 switch(j)
                 {
                     case 2:
@@ -188,8 +157,10 @@ class TowerOfHanoi
                 }
             }
         }
+        // prints base of tower
         for(int i = 0; i < 19; i++)
         {
+            // spacing between the towers at appropiate locations
             switch(i)
             {
                 case 5:
@@ -204,22 +175,25 @@ class TowerOfHanoi
             }
         }
         
-        // adds tower values
-        for(int i = diskTowers.length; i > 0; i--)
+        // for each of the disks in the towers 
+        for(int i = diskArray.length; i > 0; i--)
         {
-            switch(diskTowers[i-1])
+            // evaluates tower value of disk
+            // and adds to appropiate space in 2d array
+            switch(diskArray[i-1])
             {
-                case 0:
-                    towers[2][4-towerStacks[0]] = (char) (i+'0');
-                    towerStacks[0]++;
+                // towerHeight-2-towerStack[index] = lo
+                case 0: // disks in tower A
+                    towers[2][towerHeight-2-towerStacks[0]] = (char) (i+'0');
+                    towerStacks[0]++; // tracks how many disks in each tower
                     break;
-                case 1:
-                    towers[9][4-towerStacks[1]] = (char) (i+'0');
-                    towerStacks[1]++;
+                case 1: // disks in tower B
+                    towers[9][towerHeight-2-towerStacks[1]] = (char) (i+'0');
+                    towerStacks[1]++; // tracks how many disks in each tower
                     break;
-                case 2:
-                    towers[16][4-towerStacks[2]] = (char) (i+'0');
-                    towerStacks[2]++;
+                case 2: // disks in tower C
+                    towers[16][towerHeight-2-towerStacks[2]] = (char) (i+'0');
+                    towerStacks[2]++; // tracks how many disks in each tower
                     break;
             }
         }
@@ -233,5 +207,5 @@ class TowerOfHanoi
             }
             System.out.println();
         }
-    }
+    } // end of displayTowerOfHanoi method
 } // end of TowerOfHanoi class
