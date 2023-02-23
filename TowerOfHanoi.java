@@ -138,6 +138,7 @@ class TowerOfHanoi
     } // end of solveTowerOfHanoi method
 
 
+
     /*
     param:
         diskArray - array with each index representing
@@ -165,11 +166,12 @@ class TowerOfHanoi
         // 19 is the length of the text display
         char[][] towers = new char[19][towerHeight];
 
+
         // prints height of tower rods
         for(int i = 0; i < towers[0].length-1; i++)
         {
             // prints length of tower
-            for(int j = 0; j < 19; j++)
+            for(int j = 0; j < towers.length; j++)
             {
                 // prints tower rod at appropiate space
                 switch(j)
@@ -187,6 +189,7 @@ class TowerOfHanoi
                 }
             }
         }
+
 
         // prints base of tower
         for(int i = 0; i < 19; i++)
@@ -236,12 +239,13 @@ class TowerOfHanoi
             }
         }
 
+        
         // prints display
         // for height of tower
         for(int i = 0; i < towers[0].length; i++)
         {
             // for length of tower
-            for(int j = 0; j < 19; j++)
+            for(int j = 0; j < towers.length; j++)
             {
                 // print each element in 2d array
                 System.out.print(towers[j][i]);
