@@ -60,7 +60,6 @@ class TowerOfHanoi
     public static int round; 
 
 
-
     /* 
     param: 
         disks - number of disks in game
@@ -114,9 +113,8 @@ class TowerOfHanoi
             // prints first half of the moves
             solveTowerOfHanoi(disks-1, start, end, extra, diskArray);
 
-            // represents disk movement in array
-            // -1 due to index starting at 0
-            // disks represents what disk is being moved
+            // represents disk movement in array,
+            // disks-1 represents what disk is being moved
             // end represents where it is being moved
             diskArray[disks-1] = end-1; 
             
@@ -124,9 +122,10 @@ class TowerOfHanoi
             char startTower = (char)('A'+(start-1));
             char endTower = (char)('A'+(end-1));
 
-            // the move in the middle is always the largest disk
-            System.out.print("STEP "+round+": Move Disk "+disks+" From Tower ");
-            System.out.println(startTower+" to Tower " + endTower + ".");
+            // prints the center of the pattern
+            System.out.print("STEP "+round+": Move Disk ");
+            System.out.print(disks+" From Tower "+startTower);
+            System.out.println(" to Tower " + endTower + ".");
             round++; // increments rounds after each print
 
             // printed visual representation of towers after move
@@ -155,7 +154,7 @@ class TowerOfHanoi
         // holds how many disk are at each tower
         int[] towerStacks = new int[3];
 
-        // assigns all to start at 0
+        // assigns all towers to start w/ 0 disks
         for(int i = 0; i < towerStacks.length; i++)
             {towerStacks[i] = 0;} 
 
@@ -163,14 +162,14 @@ class TowerOfHanoi
         int towerHeight = diskArray.length +3;
 
         // holds visual 2d array of game
-        // 19 is the length of the text display
+        // 19 is the length of the text display for 3 towers
         char[][] towers = new char[19][towerHeight];
 
 
-        // prints height of tower rods
+        // adds height of tower rods
         for(int i = 0; i < towers[0].length-1; i++)
         {
-            // prints length of tower
+            // adds length of tower
             for(int j = 0; j < towers.length; j++)
             {
                 // prints tower rod at appropiate space
@@ -191,7 +190,7 @@ class TowerOfHanoi
         }
 
 
-        // prints base of tower
+        // adds base of tower
         for(int i = 0; i < 19; i++)
         {
             // spacing between the towers at appropiate locations
@@ -209,10 +208,10 @@ class TowerOfHanoi
                     towers[i][towers[0].length-1] = '-';
                     break;
             }
-        }
+        } 
         
 
-        // replaces parts of the rods with disk values
+        // replaces parts of the rods with disk values,
         // for each disk in diskarray 
         for(int i = diskArray.length; i > 0; i--)
         {
@@ -221,7 +220,7 @@ class TowerOfHanoi
             switch(diskArray[i-1])
             {
                 // tower[] 2,9,16 are towers A,B,C respectively
-                // towerHeight-2-towerStacks[0] - breakdown
+                // towerHeight-2-towerStacks[]
                     // towerHeight-2 place at bottom rod of tower
                     // -towerStacks[] moves up if there is a disk there
                 case 0: // disks in tower A
@@ -240,13 +239,14 @@ class TowerOfHanoi
         }
 
         
-        // prints display for height of tower
+        // prints tower
+        // for height of tower
         for(int i = 0; i < towers[0].length; i++)
         {
             // for length of tower
             for(int j = 0; j < towers.length; j++)
             {
-                // print each element in 2d array
+                // print element 
                 System.out.print(towers[j][i]);
             }
             // spacing after rows
